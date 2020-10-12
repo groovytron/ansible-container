@@ -44,5 +44,5 @@ deploy:dev-bar:
     - chmod 600 ~/.ssh/id_rsa
     - cd ansistrano # got into Ansistrano configuration folder
     - make install # basically install roles
-    - ansible-playbook -i inventory/taget_machine.yaml deploy.yaml
+    - ansible-playbook -i inventory/target_machine.yaml deploy.yaml
 ```
