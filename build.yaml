@@ -1,0 +1,14 @@
+# This file is only used to build multiple images
+version: '3'
+
+services:
+  deployer0.0.1:
+    image: ${COMPOSE_BUILD_NAME}:0.0.1
+    build:
+      dockerfile: 0.0.1/Dockerfile
+      context: .
+      args:
+        - BUILD_DATE=$BUILD_DATE
+        - ANSIBLE_VERSION=2.10.0
+        - SOPS_VERSION=3.6.1
+        - VCS_REF=$VCS_REF
