@@ -5,19 +5,22 @@ ARG SOPS_VERSION
 
 USER root
 
+ADD https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops_${SOPS_VERSION}_amd64.deb \
+    sops.deb
+
+# hadolint ignore=DL3008
 RUN apt-get update --quiet \
-    && apt-get upgrade --quiet --yes \
-    && apt-get install --quiet --yes \
+ && apt-get install --quiet --yes --no-install-recommends \
         gnupg \
-        wget
+        wget \
+ && dpkg -i sops.deb \
+ && apt-get autoremove --quiet --yes \
+ && apt-get clean \
+ && rm \
+        /var/lib/apt/lists/* \
+        rm sops.deb
 
-RUN wget https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops_${SOPS_VERSION}_amd64.deb
-
-RUN dpkg -i sops_${SOPS_VERSION}_amd64.deb
-
-RUN apt-get autoremove --quiet --yes \
-    && apt-get clean
-
-RUN pip install ansible==${ANSIBLE_VERSION}
+RUN pip3 install --no-cache-dir \
+        ansible==${ANSIBLE_VERSION}
 
 USER dev
