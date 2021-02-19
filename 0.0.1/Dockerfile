@@ -12,13 +12,14 @@ ADD https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops_${SO
 RUN apt-get update --quiet \
  && apt-get install --quiet --yes --no-install-recommends \
         gnupg \
+        rsync \
         wget \
  && dpkg -i sops.deb \
  && apt-get autoremove --quiet --yes \
  && apt-get clean \
- && rm \
+ && rm -rf \
         /var/lib/apt/lists/* \
-        rm sops.deb
+ && rm sops.deb
 
 RUN pip3 install --no-cache-dir \
         ansible==${ANSIBLE_VERSION}

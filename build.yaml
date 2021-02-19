@@ -9,6 +9,6 @@ services:
       context: .
       args:
         - BUILD_DATE=$BUILD_DATE
-        - ANSIBLE_VERSION=2.10.0
+        - ANSIBLE_VERSION=3.0.0
         - SOPS_VERSION=3.6.1
         - VCS_REF=$VCS_REF
